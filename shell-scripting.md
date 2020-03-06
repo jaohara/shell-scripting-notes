@@ -371,3 +371,20 @@ do
     # arithmetic expansion returning our result and updating the value of x
     x=$(( x + 1 ))
 done
+```
+
+There is a third loop structure, `until`, that functions as an inverse of `while`. An `until`-loop will continue until it receives a zero exit status, like so:
+
+```sh
+count=1
+
+until [[ "$count" -gt 5 ]]; do
+    echo "$count"
+    count=$((count+1))
+done
+```
+
+### Breaking out of a Loop
+
+Bash provides two builtin command that can be used to control program flow inside off a loop. The `break` command will immediately terminate a loop and resume the program with the next statement immediately following the loop. The `continue` command will cause the remainder of the loop to be skipped, and the program will resume with next iteration of the loop.
+
