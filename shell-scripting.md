@@ -248,7 +248,7 @@ echo "REPLY = '$REPLY'"
 read -p "Enter a value for REPLY: "
 ```
 
-# Controlling Script Flow
+## Controlling Script Flow
 
 The `if` statement is kind of strange and obtuse in shell scripting. `if` will check for the result of a command and perform a given set of actions preceded by a `then` statement. The block of actions is terminated with `fi`, the reverse of the `if` command.
 
