@@ -388,3 +388,29 @@ done
 
 Bash provides two builtin command that can be used to control program flow inside off a loop. The `break` command will immediately terminate a loop and resume the program with the next statement immediately following the loop. The `continue` command will cause the remainder of the loop to be skipped, and the program will resume with next iteration of the loop.
 
+
+### Reading Files with Loops
+
+`while` and `until` can process standard input, which allows files to be processed with loops. The loop will continue until the final line of the file is read.
+
+Assuming that we have a file called "people.txt", which looks like this:
+
+```
+john    28  blue
+greg    23  green
+nancy   34  red
+sarah   22  brown
+```
+
+... we can loop over and reach each of these lines like so:
+
+```sh
+while read name age fav_color; do
+    printf "Name: %s\tAge: %s\tFavorite Color: %s\n" \ 
+        "$name" \
+        "$age" \
+        "$fav_color"
+done < people.txt
+```
+
+Note that the name of the file is passed via the `<` operator to the `done` statement at the end of the loop. This loop will read through each of the lines in "people.txt" and parse each name, age, and favorite color into the specified shell variables. The loop will terminate once we've reached the end of hte file.
