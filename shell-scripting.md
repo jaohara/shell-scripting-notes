@@ -158,6 +158,8 @@ other_function
 
 Note that unlike other languages, you don't put parenthesis at the end of the function name when you call it. You can think of functions as their own discrete scripts - bash now interprets the name of the just as it interprets any other command or alias.
 
+Within a function, the shell automatically creates a variable called `$FUNCNAME` that stores the name of the function currently being executed.
+
 ### Local Variables
 
 Functions can have local variables with the `local` keyword. These will only be accessible within the context of the script, and can have the same name as global variables while being distinct entities.
