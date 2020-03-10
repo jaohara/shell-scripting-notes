@@ -332,6 +332,53 @@ These look similar but accomplish different tasks.
 
 Single parentheses are used to contain a command executed in the `if`-statement within a new subshell. This allows for a more safe execution of the command - any environmental variables that are set or modified during the execution of the command will end when the subshell completes and not propogate out to the current shell.
 
+## Flow Control with `case` Statements
+
+Like other languages, bash provides a control structure to use as a multiple choice compound command. This would be used in cases where you expect to match a pattern to one of a specific set of test cases and then branch program flow based on the pattern. 
+
+The syntax is slightly different than the `if` statement but represents a more terse way of accomplishing the same thing.
+
+```sh
+read -p "Enter a word."
+
+case "$REPLY" in
+    [[:alpha:]])    
+        echo "is a single alphabetic character" 
+        ;;
+    [ABC][0-9])     
+        echo "is A, B, or C, followeod by a digit." 
+        ;;
+    ???)            
+        echo "is three characters long." 
+        ;;
+    *.txt)          
+        echo "is a word ending in '.txt'" 
+        ;;
+    *)              
+        echo "is something else." 
+        ;;
+esac
+```
+
+Patterns are listed immediately following the `in` part of the `case` statement and are terminated with a `)`. The next block of code following from this match until a terminal `;;` will be executed. 
+
+While not required, it's considered good practice to have a catch-all default case with a wildcard like `*)` that handles any input that wasn't expected. In this case you'd probably want to echo out to STDERR with `>&2` and follow up with a non-zero exit status to indicate that something went wrong. 
+
+At the end of our `case` statement we terminate it in a similar manner as we would for an `if` statement by using `esac`, the reversal of `case`.
+
+The whitespace in the above example is mostly cosmetic. The above `case` statement could also be written as such:
+
+```sh
+read -p "Enter a word."
+
+case "$REPLY" in
+    [[:alpha]])     echo "..." ;;
+    [ABC][0-9])     echo "..." ;;
+    ???)            echo "..." ;;
+    *.txt)          echo "..." ;;
+    *)              echo "..." ;;
+esac
+```
 
 ## Looping
 
@@ -413,4 +460,4 @@ while read name age fav_color; do
 done < people.txt
 ```
 
-Note that the name of the file is passed via the `<` operator to the `done` statement at the end of the loop. This loop will read through each of the lines in "people.txt" and parse each name, age, and favorite color into the specified shell variables. The loop will terminate once we've reached the end of hte file.
+Note that the name of the file is passed via the `<` operator to the `done` statement at the end of the loop. This loop will read through each of the lines in "people.txt" and parse each name, age, and favorite color into the specified shell variables. The loop will terminate once we've reached the end of thee file.
