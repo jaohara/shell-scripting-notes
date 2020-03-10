@@ -380,6 +380,19 @@ case "$REPLY" in
 esac
 ```
 
+It is also possible to include multiple cases for a pattern with a vertical bar - `|`. This will create an "or" conditional pattern.
+
+```sh
+read -p "Enter a, b, or c: "
+
+case "$REPLY" in
+    a|A)    echo "You entered 'a'" ;;
+    b|B)    echo "You entered 'b'" ;;
+    c|C)    echo "You entered 'c'" ;;
+    *)      echo "Come on man, you had one job. Was it really that hard?" >&2 ;;
+esac
+```
+
 ## Looping
 
 `for` loops and `while` loops are possible in bash. Regardless of which type of loop you're using, the body of the loop is contained within a block started by `do` and ending with `done`.
