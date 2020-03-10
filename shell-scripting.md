@@ -209,6 +209,11 @@ Scripts can be passed space-separated arguments like any other bash command. You
 - `$1` - The first argument
 - `$2` - The second argument
 - etc...
+- `$9` - The ninth and final argument
+
+Nine argument variables are immediately accessible, but it is possible to access more than the 9 with parameter expansion. To specify a number greater than nine, surround the number in braces such as `${10}`, `${42}` or `${332}`.
+
+There's a bit of a clumsy way to handle extremely large numbers of arguments. The shell provides the `shift` command to shift all of the parameters down one number and discard the previous value of `$1`. This will also cause the value of `$#` to decrement by one.
 
 
 ## Reading from Standard In
@@ -390,6 +395,23 @@ case "$REPLY" in
     b|B)    echo "You entered 'b'" ;;
     c|C)    echo "You entered 'c'" ;;
     *)      echo "Come on man, you had one job. Was it really that hard?" >&2 ;;
+esac
+```
+
+If you're using a version of `bash` that is newer than version 4.0, a new terminal symbol has been added that allows multiple cases to be matched. When using `;;`, `case` will execute the first match it finds and stop matching patterns. The new `;;&` symbol will allow the `case` statement to continue searching for multiple matching patterns.
+
+```sh
+read -p "Type a character: "
+
+case "$REPLY" in 
+    [[:upper:]])    echo "'$REPLY' is upper case." ;;&
+    [[:lower:]])    echo "'$REPLY' is lower case." ;;&
+    [[:alpha:]])    echo "'$REPLY' is alphabetic." ;;&
+    [[:digit:]])    echo "'$REPLY' is a digit." ;;&
+    [[:graph:]])    echo "'$REPLY' is a visible character." ;;&
+    [[:punct:]])    echo "'$REPLY' is a punctuation symbol." ;;&
+    [[:space:]])    echo "'$REPLY' is a whitespace character." ;;&
+    [[:xdigit:]])   echo "'$REPLY' is a hexadecimal digit." ;;&
 esac
 ```
 
